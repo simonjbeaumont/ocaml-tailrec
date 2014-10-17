@@ -1,0 +1,6 @@
+tailrec
+*.cmi
+*.cmo
+*.cmt
+*.cmx
+*.o
