@@ -131,10 +131,10 @@ module ExpressionIteratorArg = struct
         if List.exists (fun (l, _) -> l.txt = "tailrec") vb_attributes then
           Printf.printf "  Found value %s at %s marked as tail-recursive...\n%!" (f.Ident.name) "[location]";
           let fname = Ident.unique_name f in
+          Printf.printf "  Compiling %s into Lletrec lambda term...\n%!" fname;
           let lam = Translcore.(transl_let Recursive vbs (transl_exp vb_expr)) in
           begin match lam with
           | Lletrec (bindings, body) ->
-              Printf.printf "  Compiled %s into Lletrec lambda term...\n%!" fname;
               Printf.printf "  Checking all calls to %s in lambda body are tail calls...\n%!" fname;
               assert_tail_calls_for f body
           | _ -> failwith "Compiled value into something other than a Lletrec"
